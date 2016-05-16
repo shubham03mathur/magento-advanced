@@ -19,11 +19,11 @@ $table = $installer->getConnection()->newTable(
             [ 'identity' => true, 'nullable' => false, 'primary' => true, 'unsigned' => true, ],
             'Entity ID'
         )->addColumn(
-            'title',
+            'Order_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
-            [ 'nullable' => false, ],
-            'Demo Title'
+            [ 'nullable' => false, 'LENGTH' =>255,],
+            'Order_id'
         )->addColumn(
             'creation_time',
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
@@ -31,13 +31,7 @@ $table = $installer->getConnection()->newTable(
             [ 'nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT, ],
             'Creation Time'
         )->addColumn(
-            'update_time',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            [ 'nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE, ],
-            'Modification Time'
-        )->addColumn(
-            'is_active',
+            'status',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
             [ 'nullable' => false, 'default' => '1', ],
