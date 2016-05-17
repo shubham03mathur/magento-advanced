@@ -1,18 +1,18 @@
 <?php
 namespace Excellence\Event\Api;
 
-use Excellence\Event\Model\TestInterface;
+use Excellence\Event\Model\StoreInfoInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
-interface TestRepositoryInterface 
+interface StoreInfoRepositoryInterface 
 {
-    public function save(TestInterface $page);
+    public function save(StoreInfoInterface $page);
 
     public function getById($id);
 
     public function getList(SearchCriteriaInterface $criteria);
 
-    public function delete(TestInterface $page);
+    public function delete(StoreInfoInterface $page);
 
     public function deleteById($id);
 }

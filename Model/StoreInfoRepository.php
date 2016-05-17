@@ -1,22 +1,22 @@
 <?php
 namespace Excellence\Event\Model;
 
-use Excellence\Event\Api\TestRepositoryInterface;
-use Excellence\Event\Model\TestInterface;
-use Excellence\Event\Model\TestFactory;
-use Excellence\Event\Model\ResourceModel\Test\CollectionFactory;
+use Excellence\Event\Api\StoreInfoRepositoryInterface;
+use Excellence\Event\Model\StoreInfoInterface;
+use Excellence\Event\Model\StoreInfoFactory;
+use Excellence\Event\Model\ResourceModel\StoreInfo\CollectionFactory;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
-class TestRepository implements \Excellence\Event\Api\TestRepositoryInterface
+class StoreInfoRepository implements \Excellence\Event\Api\StoreInfoRepositoryInterface
 {
     protected $objectFactory;
     protected $collectionFactory;
     public function __construct(
-        TestFactory $objectFactory,
+        StoreInfoFactory $objectFactory,
         CollectionFactory $collectionFactory,
         SearchResultsInterfaceFactory $searchResultsFactory       
     )
@@ -26,7 +26,7 @@ class TestRepository implements \Excellence\Event\Api\TestRepositoryInterface
         $this->searchResultsFactory = $searchResultsFactory;
     }
     
-    public function save(TestInterface $object)
+    public function save(StoreInfoInterface $object)
     {
         try
         {
@@ -49,7 +49,7 @@ class TestRepository implements \Excellence\Event\Api\TestRepositoryInterface
         return $object;        
     }       
 
-    public function delete(TestInterface $object)
+    public function delete(StoreInfoInterface $object)
     {
         try {
             $object->delete();

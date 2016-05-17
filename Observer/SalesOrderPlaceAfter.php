@@ -7,29 +7,30 @@ class SalesOrderPlaceAfter implements ObserverInterface
 {
     
     protected $logger;
-    protected $_testFactory;
+    protected $_storeinfoFactory;
     protected $_storeTime;
- 
-   
-    public function __construct(LoggerInterface $logger,\Excellence\Event\Model\TestFactory $testFactory,
-                                \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone
+    protected $orderFactory;
+    public function __construct(LoggerInterface $logger,\Excellence\Event\Model\StoreInfoFactory $storeinfoFactory,
+                                \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone,
+                                 \Magento\Sales\Model\OrderFactory $orderFactory
     )
     {
         $this->logger = $logger;
-        $this->_testFactory = $testFactory;
+        $this->_storeinfoFactory = $storeinfoFactory;
+        $this->_orderFactory = $orderFactory;
         $this->_storeTime = $timezone;
     }
  
     public function execute(Observer $observer)
     {
-       $test = $this->_testFactory->create();
+       $model = $this->_storeinfoFactory->create();
+       $fetchStatus= $this->_orderFactory->create();
        $event = $observer->getEvent();
        $orderIds = $event->getOrderIds();
-       $order_id = $orderIds[0]; 
-       $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-       $orderStatus = $objectManager->create('Magento\Sales\Model\Order')->load($order_id);
-       $status= $orderStatus->getStatus();
+       $order_id = $orderIds[0];
+       $customerStatus = $fetchStatus->load($order_id);
+       $status= $customerStatus->getStatus();
        $time = (new \DateTime())->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
-       $test->saveEntry($order_id, $status, $time);
+       $model->saveEntry($order_id, $status, $time);
     }
 }

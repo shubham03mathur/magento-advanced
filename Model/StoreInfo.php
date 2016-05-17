@@ -1,12 +1,12 @@
 <?php
 namespace Excellence\Event\Model;
-class Test extends \Magento\Framework\Model\AbstractModel implements TestInterface, \Magento\Framework\DataObject\IdentityInterface
+class StoreInfo extends \Magento\Framework\Model\AbstractModel implements StoreInfoInterface, \Magento\Framework\DataObject\IdentityInterface
 {
-    const CACHE_TAG = 'excellence_event_test';
+    const CACHE_TAG = 'excellence_event_storeinfo';
 
     protected function _construct()
     {
-        $this->_init('Excellence\Event\Model\ResourceModel\Test');
+        $this->_init('Excellence\Event\Model\ResourceModel\StoreInfo');
     }
 
     public function getIdentities()
