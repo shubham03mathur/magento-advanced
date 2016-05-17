@@ -2,6 +2,4 @@
     <event name="checkout_onepage_controller_success_action">
         <observer name="excellence_event_order_observer" instance="Excellence\Event\Observer\SalesOrderPlaceAfter" />
     </event>
-    
-
 </config>

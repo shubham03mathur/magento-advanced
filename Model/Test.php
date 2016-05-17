@@ -13,11 +13,12 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
     {
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
-    public function saveEntry($status, $orderid)
-    {
-         $this->setOrderId($orderid);
-         $this->setStatus($status);
-         $this->save();
-
+    public function saveEntry($order_id,$status,$time)
+    { 
+    	
+        $this->setOrderId($order_id);
+        $this->setStatus($status);
+        $this->setCreationTime($time);
+        $this->save();
     }
 }

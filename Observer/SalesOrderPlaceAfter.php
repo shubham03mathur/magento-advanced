@@ -2,25 +2,26 @@
 namespace Excellence\Event\Observer;
 use \Psr\Log\LoggerInterface;
 use Magento\Framework\Event\Observer;
-use Magento\Framework\Event\ObserverInterface;
- 
- 
+use Magento\Framework\Event\ObserverInterface; 
 class SalesOrderPlaceAfter implements ObserverInterface
 {
     
     protected $logger;
     protected $_testFactory;
+    protected $_storeTime;
  
    
-    public function __construct(LoggerInterface $logger,\Excellence\Table\Model\TestFactory $testFactory)
+    public function __construct(LoggerInterface $logger,\Excellence\Event\Model\TestFactory $testFactory,
+                                \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone
+    )
     {
         $this->logger = $logger;
         $this->_testFactory = $testFactory;
+        $this->_storeTime = $timezone;
     }
  
     public function execute(Observer $observer)
     {
-       // $this->logger->warn('Observer Works for Sales Order!');
        $test = $this->_testFactory->create();
        $event = $observer->getEvent();
        $orderIds = $event->getOrderIds();
@@ -28,9 +29,7 @@ class SalesOrderPlaceAfter implements ObserverInterface
        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
        $orderStatus = $objectManager->create('Magento\Sales\Model\Order')->load($order_id);
        $status= $orderStatus->getStatus();
-       $observer->$test->saveEntry($status, $order_id);
-         
-
-      
+       $time = (new \DateTime())->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
+       $test->saveEntry($order_id, $status, $time);
     }
 }

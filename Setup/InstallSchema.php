@@ -26,15 +26,15 @@ $table = $installer->getConnection()->newTable(
             'Order_id'
         )->addColumn(
             'creation_time',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            \Magento\Framework\DB\Ddl\Table::TYPE_DATETIME,
             null,
-            [ 'nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT, ],
-            'Creation Time'
+            [ 'nullable' => false,],
+            'Order Time'
         )->addColumn(
             'status',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
-            [ 'nullable' => false, 'default' => '1', ],
+            [ 'nullable' => false, 'default' => '1','LENGTH' =>255,],
             'Is Active'
         );
 $installer->getConnection()->createTable($table);
